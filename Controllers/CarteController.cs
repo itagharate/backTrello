@@ -64,6 +64,32 @@ namespace Trello1.Controllers
             return Ok(Cartes);
         }
 
+        [HttpGet("{id}")]
+
+        public IActionResult Getprojetwithid(int id)
+        {
+            var carte = _context.Cartes.SingleOrDefault(c => c.Id == id);
+
+            if (carte == null)
+            {
+                return BadRequest("la carte n'existe pas");
+            }
+            return Ok(carte);
+        }
+        [HttpGet("carteesByListeId/{id}")]
+
+        public IActionResult CarteBylisteId(int id)
+        {
+            var cartes = _context.Cartes.Where(c => c.IdListe == id).ToList();
+
+            if (cartes == null)
+            {
+                return BadRequest("le projet n'existe pas");
+            }
+            return Ok(cartes);
+        }
+
+
         [HttpPut("{id}")]
         public IActionResult Put(dtoPostProjet dto, int id)
 

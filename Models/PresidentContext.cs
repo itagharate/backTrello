@@ -13,8 +13,6 @@ public partial class PresidentContext : DbContext
     public PresidentContext(DbContextOptions<PresidentContext> options)
         : base(options)
     {
-        Database.EnsureCreated();
-        Database.Migrate();
     }
 
     public virtual DbSet<Carte> Cartes { get; set; }

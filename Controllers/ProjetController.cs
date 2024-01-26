@@ -79,6 +79,18 @@ namespace Trello1.Controllers
             return Ok(projets);
         }
 
+        [HttpGet("{id}")]
+
+        public IActionResult Getprojetwithid (int id) 
+        {
+            var projet = _context.Projets.SingleOrDefault(c => c.Id == id);
+
+            if (projet == null) 
+            {
+                return BadRequest("le projet n'existe pas");
+            }
+            return Ok(projet);
+        }
 
 
         [HttpPut("{id}")]

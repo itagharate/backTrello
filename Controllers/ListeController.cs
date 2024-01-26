@@ -60,8 +60,31 @@ namespace Trello1.Controllers
             return Ok(listes);
         }
 
+        [HttpGet("{id}")]
 
+        public IActionResult Getlistewithid(int id)
+        {
+            var liste = _context.Listes.SingleOrDefault(c => c.Id == id);
 
+            if (liste == null)
+            {
+                return BadRequest("le projet n'existe pas");
+            }
+            return Ok(liste);
+        }
+
+        [HttpGet("ListesByProjectId/{id}")]
+
+        public IActionResult ListesByProjectId(int id)
+        {
+            var listes = _context.Listes.Include(x => x.Cartes).ThenInclude(carte => carte.Commentaires).Where(c => c.IdProjet==id).ToList();
+
+            if (listes == null)
+            {
+                return BadRequest("le projet n'existe pas");
+            }
+            return Ok(listes);
+        }
 
 
         [HttpDelete("{id}")]

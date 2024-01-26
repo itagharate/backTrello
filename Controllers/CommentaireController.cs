@@ -45,7 +45,6 @@ namespace Trello1.Controllers
         }
 
 
-
         [HttpGet]
         public IActionResult Get()
         {
@@ -54,7 +53,32 @@ namespace Trello1.Controllers
             return Ok(commentaires);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var commentaire = _context.Commentaires.SingleOrDefault(c => c.Id == id);
 
+            if (commentaire == null) 
+            {
+                return BadRequest("le commentaire n'existe pas");
+            }
+
+            return Ok(commentaire);
+        }
+
+
+        [HttpGet("commentairebyIdCarte/{id}")]
+        public IActionResult GetcommByidCarte(int id)
+        {
+            var commentaires = _context.Commentaires.Where(c => c.IdCarte ==id).ToList();
+
+            if (commentaires == null)
+            {
+                return BadRequest("le commentaire n'existe pas");
+            }
+
+            return Ok(commentaires);
+        }
 
 
 
@@ -72,10 +96,6 @@ namespace Trello1.Controllers
 
             return Ok(commentaire);
         }
-
-
-
-
 
 
         [HttpPut("{id}")]
